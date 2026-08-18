@@ -47,4 +47,25 @@ describe("zenReply", () => {
     const reply = zenReply("   ");
     expect(reply.message).toContain("What is on your mind?");
   });
+
+  it("never produces 'undefined' fragments or empty breath across many inputs", () => {
+    const samples = [
+      "hello",
+      "I feel stressed about my exams",
+      "help me focus",
+      "I can't sleep at night",
+      "thank you so much",
+      "goodbye",
+      "what is the meaning of life",
+      "z",
+      "the quick brown fox jumps over the lazy dog",
+    ];
+    for (let i = 0; i < 500; i += 1) {
+      const input = `${samples[i % samples.length]} ${i}`;
+      const reply = zenReply(input);
+      expect(reply.message).not.toContain("undefined");
+      expect(reply.breath).toBeTruthy();
+      expect(reply.breath).not.toContain("undefined");
+    }
+  });
 });

@@ -49,7 +49,10 @@ export function hashString(input: string): number {
 }
 
 function pick<T>(items: readonly T[], seed: number): T {
-  return items[seed % items.length];
+  // Bitwise shifts on the caller side can yield negative (signed int32) seeds,
+  // so normalize into a valid, non-negative index.
+  const index = ((Math.trunc(seed) % items.length) + items.length) % items.length;
+  return items[index];
 }
 
 export function detectIntent(message: string): ZenIntent {
