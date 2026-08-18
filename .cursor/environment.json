@@ -1,0 +1,10 @@
+{
+  "name": "TKU Zen AI",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev"
+    }
+  ]
+}
